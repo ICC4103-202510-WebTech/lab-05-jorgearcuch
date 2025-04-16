@@ -10,7 +10,7 @@
 
 10.times do |i|
     User.create!(
-        email: "user{i+1}@gmail.com",
+        email: "user#{i+1}@gmail.com",
         first_name: "FirstName #{i+1}",
         last_name: "LastName #{i+1}",
     )

@@ -1,0 +1,23 @@
+<h1>Chats</h1>
+
+<table border="1">
+  <tr>
+    <th>ID</th>
+    <th>Sender ID</th>
+    <th>Receiver ID</th>
+    <th>Created At</th>
+    <th>Updated At</th>
+    <th>Record</th>
+  </tr>
+
+  <% @chats.each do |chat| %>
+    <tr>
+      <td><%= chat.id %></td>
+      <td><%= chat.sender_id %></td>
+      <td><%= chat.receiver_id %></td>
+      <td><%= chat.created_at %></td>
+      <td><%= chat.updated_at %></td>
+      <td><%= link_to "Show", chat_path(chat) %></td>
+    </tr>
+  <% end %>
+</table>
