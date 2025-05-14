@@ -18,8 +18,8 @@ end
 
 10.times do |i|
     Chat.create!(
-        sender_id: rand(1..10),
-        receiver_id: rand(1..10),
+        sender_id: rand(1..5),
+        receiver_id: rand(6..10),
     )
 end
 

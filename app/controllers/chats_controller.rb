@@ -20,6 +20,19 @@ class ChatsController < ApplicationController
     end
   end
   
+  def edit
+    @chat = Chat.find(params[:id])
+  end
+
+  def update
+    @chat = Chat.find(params[:id])
+    if @chat.update(chat_params)
+     redirect_to @chat, notice: 'Chat updated successfully.'
+    else
+      render :edit
+    end
+  end
+
   private
   
   def chat_params

@@ -1,0 +1,14 @@
+<h1>Edit Message</h1>
+
+<%= form_with model: @message do |f| %>
+  <%= f.label :chat_id %>
+  <%= f.select :chat_id, Chat.all.collect { |c| ["Chat ##{c.id}", c.id] } %><br>
+
+  <%= f.label :user_id, "Author" %>
+  <%= f.select :user_id, User.all.collect { |u| [u.email, u.id] } %><br>
+
+  <%= f.label :body %>
+  <%= f.text_area :body %><br>
+
+  <%= f.submit "Update Message" %>
+<% end %>

@@ -1,5 +1,16 @@
 <h1>New Chat</h1>
 
+<% if @chat.errors.any? %>
+  <div style="color: red;">
+    <h2><%= pluralize(@chat.errors.count, "error") %> prohibited this chat from being saved:</h2>
+    <ul>
+      <% @chat.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
 <%= form_with model: @chat do |f| %>
   <%= f.label :sender_id, "Sender" %>
   <%= f.select :sender_id, User.all.collect { |u| [u.email, u.id] } %><br>
@@ -10,4 +21,4 @@
   <%= f.submit "Create Chat" %>
 <% end %>
 
-<%= @chat.errors.full_messages.to_sentence if @chat.errors.any? %>
+<%= link_to 'Back to chats', chats_path %>

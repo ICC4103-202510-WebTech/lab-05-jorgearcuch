@@ -18,7 +18,10 @@
       <td><%= chat.receiver_id %></td>
       <td><%= chat.created_at %></td>
       <td><%= chat.updated_at %></td>
-      <td><%= link_to "Show", chat_path(chat) %></td>
+      <td>
+      <%= link_to "Show", chat_path(chat) %>
+      <%= link_to "Edit", edit_chat_path(chat) %>
+      </td>
     </tr>
   <% end %>
 </table>

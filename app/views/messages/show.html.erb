@@ -8,5 +8,9 @@
   <li><strong>Created At:</strong> <%= @message.created_at %></li>
   <li><strong>Updated At:</strong> <%= @message.updated_at %></li>
 </ul>
+<p><strong>Message Body:</strong> <%= @message.body %></p>
+<p><strong>Author:</strong> <%= @message.user.email %></p>
+<p><strong>Chat ID:</strong> <%= link_to "View Chat", chat_path(@message.chat) %></p>
 
 <%= link_to "Back to Messages", messages_path %>
+<p><%= link_to "Edit Message", edit_message_path(@message) %></p>

@@ -1,5 +1,16 @@
 <h1>New User</h1>
 
+<% if @user.errors.any? %>
+  <div style="color: red;">
+    <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
+    <ul>
+      <% @user.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
 <%= form_with model: @user do |f| %>
   <%= f.label :first_name %>
   <%= f.text_field :first_name %><br>
@@ -13,4 +24,4 @@
   <%= f.submit "Create User" %>
 <% end %>
 
-<%= @user.errors.full_messages.to_sentence if @user.errors.any? %>
+<%= link_to 'Back to users', users_path %>

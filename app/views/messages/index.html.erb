@@ -19,7 +19,10 @@
       <td><%= message.body %></td>
       <td><%= message.created_at %></td>
       <td><%= message.updated_at %></td>
-      <td><%= link_to "Show", message_path(message) %></td>
+      <td>
+      <%= link_to "Show", message_path(message) %>
+      <%= link_to "Edit", edit_message_path(message) %>
+      </td>
     </tr>
   <% end %>
 </table>

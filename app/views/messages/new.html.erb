@@ -1,5 +1,16 @@
 <h1>New Message</h1>
 
+<% if @message.errors.any? %>
+  <div style="color: red;">
+    <h2><%= pluralize(@message.errors.count, "error") %> prohibited this message from being saved:</h2>
+    <ul>
+      <% @message.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
 <%= form_with model: @message do |f| %>
   <%= f.label :chat_id, "Chat" %>
   <%= f.select :chat_id, Chat.all.collect { |c| ["Chat ##{c.id}", c.id] } %><br>
@@ -13,4 +24,4 @@
   <%= f.submit "Send Message" %>
 <% end %>
 
-<%= @message.errors.full_messages.to_sentence if @message.errors.any? %>
+<%= link_to 'Back to messages', messages_path %>
