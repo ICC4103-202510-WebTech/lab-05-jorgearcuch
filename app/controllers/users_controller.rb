@@ -12,26 +12,29 @@ class UsersController < ApplicationController
   end
   
   def create
-    @user = User.new(user_params)
-    if @user.save
-      redirect_to users_path
+  @user = User.new(user_params)
+  if @user.save
+    redirect_to @user, notice: 'User was successfully created.'
+  else
+    render :new, status: :unprocessable_entity
+  end
+  end
+
+
+  def edit
+    @user = User.find(params[:id])
+  end
+
+  def update
+    @user = User.find(params[:id])
+    if @user.update(user_params)
+      redirect_to @user, notice: 'User was successfully updated.'
     else
-      render :new
+      render :edit, status: :unprocessable_entity
     end
   end
 
-def edit
-  @user = User.find(params[:id])
-end
 
-def update
-  @user = User.find(params[:id])
-  if @user.update(user_params)
-    redirect_to @user, notice: 'User updated successfully.'
-  else
-    render :edit
-  end
-end
 
   
   private

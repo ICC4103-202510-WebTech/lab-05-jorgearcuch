@@ -12,25 +12,27 @@ class MessagesController < ApplicationController
   end
   
   def create
-    @message = Message.new(message_params)
-    if @message.save
-      redirect_to messages_path
-    else
-      render :new
-    end
+  @message = Message.new(message_params)
+  if @message.save
+    redirect_to @message, notice: 'Message was successfully created.'
+  else
+    render :new, status: :unprocessable_entity
   end
+  end
+
   def edit
     @message = Message.find(params[:id])
   end
 
   def update
-    @message = Message.find(params[:id])
-    if @message.update(message_params)
-      redirect_to @message, notice: 'Message updated successfully.'
-    else
-      render :edit
-    end
+  @message = Message.find(params[:id])
+  if @message.update(message_params)
+    redirect_to @message, notice: 'Message was successfully updated.'
+  else
+    render :edit, status: :unprocessable_entity
   end
+  end
+
 
   private
   
