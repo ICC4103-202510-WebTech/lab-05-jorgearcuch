@@ -1,23 +1,34 @@
-<h1>Chat Info</h1>
+<div class="container mt-4">
+  <h1 class="mb-4">Chat Info</h1>
 
-<ul>
-  <li><strong>ID:</strong> <%= @chat.id %></li>
-  <li><strong>Sender ID:</strong> <%= @chat.sender_id %></li>
-  <li><strong>Receiver ID:</strong> <%= @chat.receiver_id %></li>
-  <li><strong>Created At:</strong> <%= @chat.created_at %></li>
-  <li><strong>Updated At:</strong> <%= @chat.updated_at %></li>
-</ul>
-<p><strong>Sender:</strong> <%= @chat.sender.email %></p>
-<p><strong>Receiver:</strong> <%= @chat.receiver.email %></p>
+  <div class="card mb-4">
+    <div class="card-body">
+      <ul class="list-group list-group-flush mb-3">
+        <li class="list-group-item"><strong>ID:</strong> <%= @chat.id %></li>
+        <li class="list-group-item"><strong>Sender ID:</strong> <%= @chat.sender_id %></li>
+        <li class="list-group-item"><strong>Receiver ID:</strong> <%= @chat.receiver_id %></li>
+        <li class="list-group-item"><strong>Created At:</strong> <%= @chat.created_at.strftime("%Y-%m-%d %H:%M") %></li>
+        <li class="list-group-item"><strong>Updated At:</strong> <%= @chat.updated_at.strftime("%Y-%m-%d %H:%M") %></li>
+      </ul>
 
-<h2>Messages</h2>
-<ul>
-  <% @chat.messages.each do |msg| %>
-    <li><strong><%= msg.user.email %>:</strong> <%= msg.body %></li>
-  <% end %>
-</ul>
+      <p><strong>Sender:</strong> <%= @chat.sender.email %></p>
+      <p><strong>Receiver:</strong> <%= @chat.receiver.email %></p>
+    </div>
+  </div>
 
-<%= link_to "Back to Chats", chats_path %>
-<% if can? :update, @chat %>
-  <%= link_to "Edit", edit_chat_path(@chat) %>
-<% end %>
+  <h2 class="mb-3">Messages</h2>
+  <ul class="list-group mb-4">
+    <% @chat.messages.each do |msg| %>
+      <li class="list-group-item">
+        <strong><%= msg.user.email %>:</strong> <%= msg.body %>
+      </li>
+    <% end %>
+  </ul>
+
+  <div class="d-flex gap-2">
+    <%= link_to "Back to Chats", chats_path, class: "btn btn-secondary" %>
+    <% if can? :update, @chat %>
+      <%= link_to "Edit", edit_chat_path(@chat), class: "btn btn-primary" %>
+    <% end %>
+  </div>
+</div>

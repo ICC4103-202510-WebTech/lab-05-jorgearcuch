@@ -1,19 +1,27 @@
-<h1>Message Info</h1>
+<div class="container mt-4">
+  <h1 class="mb-4">Message Info</h1>
 
-<ul>
-  <li><strong>ID:</strong> <%= @message.id %></li>
-  <li><strong>Chat ID:</strong> <%= @message.chat_id %></li>
-  <li><strong>User name:</strong> <%= @message.user_id %></li>
-  <li><strong>Body:</strong> <%= @message.body %></li>
-  <li><strong>Created At:</strong> <%= @message.created_at %></li>
-  <li><strong>Updated At:</strong> <%= @message.updated_at %></li>
-</ul>
-<p><strong>Message Body:</strong> <%= @message.body %></p>
-<p><strong>Author:</strong> <%= @message.user.email %></p>
-<p><strong>Chat ID:</strong> <%= link_to "View Chat", chat_path(@message.chat) %></p>
+  <div class="card mb-4">
+    <div class="card-body">
+      <ul class="list-group list-group-flush mb-3">
+        <li class="list-group-item"><strong>ID:</strong> <%= @message.id %></li>
+        <li class="list-group-item"><strong>Chat ID:</strong> <%= @message.chat_id %></li>
+        <li class="list-group-item"><strong>User ID:</strong> <%= @message.user_id %></li>
+        <li class="list-group-item"><strong>Body:</strong> <%= @message.body %></li>
+        <li class="list-group-item"><strong>Created At:</strong> <%= @message.created_at.strftime("%Y-%m-%d %H:%M") %></li>
+        <li class="list-group-item"><strong>Updated At:</strong> <%= @message.updated_at.strftime("%Y-%m-%d %H:%M") %></li>
+      </ul>
 
-<%= link_to "Back to Messages", messages_path %>
-<% if can? :edit, @message %>
-        <%= link_to "Edit", edit_message_path(@message) %>
-<% end %>
+      <p><strong>Message Body:</strong> <%= @message.body %></p>
+      <p><strong>Author:</strong> <%= @message.user.email %></p>
+      <p><strong>Chat:</strong> <%= link_to "View Chat", chat_path(@message.chat), class: "btn btn-outline-info btn-sm" %></p>
+    </div>
+  </div>
 
+  <div class="d-flex gap-2">
+    <%= link_to "Back to Messages", messages_path, class: "btn btn-secondary" %>
+    <% if can? :edit, @message %>
+      <%= link_to "Edit", edit_message_path(@message), class: "btn btn-primary" %>
+    <% end %>
+  </div>
+</div>
