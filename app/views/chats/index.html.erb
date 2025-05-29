@@ -20,7 +20,9 @@
       <td><%= chat.updated_at %></td>
       <td>
       <%= link_to "Show", chat_path(chat) %>
-      <%= link_to "Edit", edit_chat_path(chat) %>
+      <% if can? :update, chat %>
+        <%= link_to "Edit", edit_chat_path(chat) %>
+      <% end %>
       </td>
     </tr>
   <% end %>

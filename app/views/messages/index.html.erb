@@ -21,7 +21,9 @@
       <td><%= message.updated_at %></td>
       <td>
       <%= link_to "Show", message_path(message) %>
-      <%= link_to "Edit", edit_message_path(message) %>
+      <% if can? :edit, message %>
+        <%= link_to "Edit", edit_message_path(message) %>
+      <% end %>
       </td>
     </tr>
   <% end %>

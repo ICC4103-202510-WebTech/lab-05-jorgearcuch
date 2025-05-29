@@ -1,4 +1,6 @@
 class ChatsController < ApplicationController
+  before_action :authenticate_user!
+  load_and_authorize_resource
   def index
     @chats = Chat.all
   end
@@ -13,8 +15,11 @@ class ChatsController < ApplicationController
   
   def create
     @chat = Chat.new(chat_params)
+    @chat.owner = current_user   # 👈 Asignar dueño
+    @chat.users << current_user unless @chat.users.include?(current_user) # opcional: agregarlo como participante también
+
     if @chat.save
-      redirect_to chats_path
+      redirect_to chats_path, notice: 'Chat creado correctamente.'
     else
       render :new
     end
