@@ -2,7 +2,7 @@ class ChatsController < ApplicationController
   before_action :authenticate_user!
   load_and_authorize_resource
   def index
-    @chats = Chat.all
+     @chats = Chat.for_user(current_user)
   end
 
   def show
@@ -15,15 +15,17 @@ class ChatsController < ApplicationController
   
   def create
     @chat = Chat.new(chat_params)
-    @chat.owner = current_user   # 👈 Asignar dueño
-    @chat.users << current_user unless @chat.users.include?(current_user) # opcional: agregarlo como participante también
+    @chat.owner = current_user
+    @chat.users << @chat.sender unless @chat.users.include?(@chat.sender)
+    @chat.users << @chat.receiver unless @chat.users.include?(@chat.receiver)
 
     if @chat.save
       redirect_to chats_path, notice: 'Chat creado correctamente.'
     else
-      render :new
+      render :new, status: :unprocessable_entity
     end
   end
+
   
   def edit
     @chat = Chat.find(params[:id])

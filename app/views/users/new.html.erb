@@ -21,6 +21,12 @@
   <%= f.label :email %>
   <%= f.text_field :email %><br>
 
+  <% if current_user&.admin? %>
+    <%= f.label :admin do %>
+      <%= f.check_box :admin %> Administrator
+    <% end %><br>
+  <% end %>
+
   <%= f.submit "Create User" %>
 <% end %>
 

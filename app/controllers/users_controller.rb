@@ -1,8 +1,13 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!
   load_and_authorize_resource
+  before_action :authorize_admin!
   def index
-    @users = User.all
+    if current_user.admin?
+      @users = User.all
+    else
+      redirect_to chats_path, alert: "No tienes acceso a esta página."
+    end
   end
 
   def show
@@ -35,14 +40,22 @@ class UsersController < ApplicationController
       render :edit, status: :unprocessable_entity
     end
   end
-
+ def authorize_admin!
+    unless current_user.admin?
+      redirect_to chats_path, alert: "No tienes permiso para acceder a esta página."
+    end
+  end
 
 
   
   private
   
   def user_params
-    params.require(:user).permit(:first_name, :last_name, :email)
+    if current_user&.admin?
+      params.require(:user).permit(:email, :password, :password_confirmation, :admin, :first_name, :last_name)
+    else
+      params.require(:user).permit(:email, :password, :password_confirmation, :admin, :first_name, :last_name)
+    end
   end
   
 end

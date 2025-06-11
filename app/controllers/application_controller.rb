@@ -9,8 +9,9 @@ class ApplicationController < ActionController::Base
     root_path
   end
   def configure_permitted_parameters
-    keys = [:first_name, :last_name, :username]
+    keys = [:first_name, :last_name, :username, :admin]
     devise_parameter_sanitizer.permit(:sign_up, keys: keys)
     devise_parameter_sanitizer.permit(:account_update, keys: keys)
   end
+
 end
